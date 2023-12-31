@@ -1,10 +1,8 @@
 // 为了避免在FireFox中多次运行出现重复定义问题
 // 包装开始
 (() => {
-
-    // 修改下面的成绩，可以直接从excel复制粘贴，成绩的顺序必须和教务系统的名单一致
-    const scoreRaw =
-        `221124010014	吴芳	87
+	// 修改下面的成绩，可以直接从excel复制粘贴，成绩的顺序必须和教务系统的名单一致
+	const scoreRaw = `221124010014	吴芳	87
 221124010062	邹敏	81
 221124010105	李昌蔚	92
 221124010114	余传奇	92
@@ -44,37 +42,40 @@
 221124010066	彭凯歌	84
 221124010122	何家豪	82
 221124010149	马清玲	98
-`
-    // 分数
-    let scores = {}
+`;
+	// 分数
+	const scores = {};
 
-    // 按行进行切分
-    const rows = scoreRaw.split('\n');
-    for (const row of rows) {
-        const fields = row.split('\t').map(e => e.trim());
-        scores[fields[0]] = fields;
-    }
+	// 按行进行切分
+	const rows = scoreRaw.trim().split("\n");
+	for (const row of rows) {
+		const fields = row.split("\t").map((e) => e.trim());
+		scores[fields[0]] = fields;
+	}
 
-    // 找到录入成绩对应的文档
-    let doc = document; // 默认为top文档，即当前页面所在的文档
-    for (let i = 0; i < frames.length; i++) {
-        const d = frames[i].document;
-        if (d.title == '教学记录-YETHAN以专教学信息服务平台') {
-            doc = d;
-            break;
-        }
-    }
+	// 找到录入成绩对应的文档
+	let doc = document; // 默认为top文档，即当前页面所在的文档
+	for (let i = 0; i < frames.length; i++) {
+		const d = frames[i].document;
+		if (d.title === "教学记录-YETHAN以专教学信息服务平台") {
+			doc = d;
+			break;
+		}
+	}
 
-    // 填充到每个输入框
-    let ids = doc.getElementsByName('studentId'); // 平时成绩录入时学号
-    if (ids.length == 0) {
-        ids = doc.getElementsByName('student_id'); // 期末成绩录入时学号
-    }
-    const marks = doc.getElementsByName('mark');
-    for (let i = 0; i < marks.length; i++) {
-        const id = ids[i].value
-        marks[i].value = scores[id][2];
-    }
+	// 填充到每个输入框
+	let ids = doc.getElementsByName("studentId"); // 平时成绩录入时学号
+	if (ids.length === 0) {
+		ids = doc.getElementsByName("student_id"); // 期末成绩录入时学号
+	}
+	const marks = doc.getElementsByName("mark");
+	for (let i = 0; i < marks.length; i++) {
+		const id = ids[i].value;
+		const score = scores[id][2];
+		if (score) { // 判断成绩是否存在
+			marks[i].value = score;
+		}
+	}
 
-    // 包装结束
+	// 包装结束
 })();
