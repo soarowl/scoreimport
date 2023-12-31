@@ -1,21 +1,6 @@
-#import "template.typ": *
+#import "article.typ":*
 
-// Take a look at the file `template.typ` in the file panel
-// to customize this template and discover how it works.
-#show: article.with(
-  authors: ("卓能文",),
-  date: datetime(
-    year: 2023,
-    month: 11,
-    day: 19,
-  ),
-  logo: "logo.jpg",
-  title: "教务系统成绩自动录入",
-)
-
-// We generated the example code below so you can see how
-// your document will look. Go ahead and replace it with
-// your own content!
+#show: article.with(title: "教务系统成绩自动录入", authors: ("卓能文",))
 
 = 教务系统成绩自动录入
 
@@ -45,18 +30,15 @@
 
 录入成绩时，复制下面脚本，并修改学生成绩后，将所有内容全部复制到调试器编辑窗口，单击`run`按钮，学生成绩会自动填入输入框，单击页面中的提交按钮完成成绩录入。
 
-#outlinebox(
-  title: "建议",
-  color: "blue",
-  centering: true,
-)[如果采用其它浏览器，建议复制下面的代码，并在某个编辑器中修改好学生成绩后，复制所有内容到浏览器调试窗口，然后按回车键才会开始执行脚本，切记！]
+#warning[如果采用谷歌浏览器或微软浏览器，进入开发者工具后，选择“控制台”或“Console”选项卡，第一次粘贴代码时，可能有个警告消息出现，在里面直接输入“allow pasting”并回车，然后就可以开始正常贴js代码了。]
+
+#info[如果采用其它浏览器，建议复制下面的代码，并在某个编辑器中修改好学生成绩后，复制所有内容到浏览器调试窗口，然后按回车键才会开始执行脚本，切记！]
 
 == 成绩注入脚本
 
-#codefile(
-  name: "mark.js",
-  caption: "成绩注入脚本",
+#code(
   lang: "js",
+  raw(read("mark.js"), lang: "js")
 )
 
 == 欢迎提需求
