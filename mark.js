@@ -51,8 +51,8 @@
     // 按行进行切分
     const rows = scoreRaw.split('\n');
     for (const row of rows) {
-        const fields = row.split('\t');
-        scores[fields[0].trim()] = fields;
+        const fields = row.split('\t').map(e => e.trim());
+        scores[fields[0]] = fields;
     }
 
     // 找到录入成绩对应的文档
@@ -73,7 +73,7 @@
     const marks = doc.getElementsByName('mark');
     for (let i = 0; i < marks.length; i++) {
         const id = ids[i].value
-        marks[i].value = scores[id][2].trim();
+        marks[i].value = scores[id][2];
     }
 
     // 包装结束
