@@ -49,7 +49,11 @@
 	// 按行进行切分
 	const rows = scoreRaw.trim().split("\n");
 	for (const row of rows) {
-		const fields = row.split("\t").map((e) => e.trim());
+		const fields = row
+			.trim()
+			.split(/ |\t/)
+			.map((e) => e.trim())
+			.filter((e) => e !== "");
 		scores[fields[0]] = fields;
 	}
 
