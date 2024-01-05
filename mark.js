@@ -71,9 +71,18 @@
 	const marks = doc.getElementsByName("mark");
 	for (let i = 0; i < marks.length; i++) {
 		const id = ids[i].value;
-		const score = scores[id][2];
-		if (score) { // 判断成绩是否存在
-			marks[i].value = score;
+		const row = scores[id];
+		if (row) {
+			// 检查是否有该学生记录
+			const score = row[2];
+			if (score) {
+				// 判断成绩是否存在
+				marks[i].value = score;
+			} else {
+				alert(`学号：${id} 学生无成绩！！！`);
+			}
+		} else {
+			alert(`学号：${id} 学生无记录！！！`);
 		}
 	}
 
